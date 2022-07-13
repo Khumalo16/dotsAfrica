@@ -18,9 +18,21 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import jakarta.validation.ConstraintViolationException;
 
+
+/**
+ * @author Ismail
+ * 
+ * A customise exception handler class
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    
+
+    /**
+     * Handle IllegalStateException
+     * 
+     * @param e the exception
+     * @return a customise error message
+     */
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<Object> illegatStatementException(IllegalStateException e) {
         Map<String, Object> body = new LinkedHashMap<>();
@@ -32,7 +44,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
-
+    
+    /**
+     * Handle ConstraintViolationException
+     * 
+     * @param e the exception
+     * @param httpStatus status of the request
+     * @return a customise error message
+     */
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> illegatStatementEsxception(ConstraintViolationException e, HttpStatus httpStatus) {
         Map<String, Object> body = new LinkedHashMap<>();

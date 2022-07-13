@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.SpringVersion;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -37,6 +36,7 @@ public class ItemService implements ItemServices {
     @Autowired
     private final UserRepository userRepository;
 
+    @Override
     public void addItem(ItemRequest itemRequest) {
         Item  item = new Item();
         item.setLabel(itemRequest.getLabel());
@@ -81,6 +81,16 @@ public class ItemService implements ItemServices {
         return strDate;
     }
 
+    /**
+     * A method to  validating user information
+     * 
+     * @param username username of the user
+     * @param id the item id
+     * 
+     * @return the item
+     * 
+     * @throws IllegalStateException if the user or id not found in the database 
+     */
     private Item validate(String username, Optional<Long> id) {
         if (!id.isPresent() || username == null)  throw new IllegalStateException("Username or Id not provided");
         Optional<Item> item = itemRepository.findItemById(id.get());
@@ -105,10 +115,10 @@ public class ItemService implements ItemServices {
     @Override
     public ItemResponse updateItem(ItemRequest itemRequest) {
         Item item = validate(itemRequest.getUsername(), itemRequest.getId());
+
         if (itemRequest.getDiscription() != null) {
             item.setDiscription(itemRequest.getDiscription());
         }
-
         if (itemRequest.getLabel() != null) {
             item.setLabel(itemRequest.getLabel());
         }
