@@ -1,10 +1,16 @@
 package com.dotsafrica.dotsafrica.request;
 
-import lombok.Data;
+import java.util.Optional;
 
+import lombok.Data;
+import lombok.Getter;
+
+
+@Getter
 @Data
 public class ItemRequest {
     String label;
-    String description;
+    String discription;
     String username;
+    Optional<Long> id;
 }

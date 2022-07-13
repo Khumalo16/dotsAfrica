@@ -22,6 +22,7 @@ public class UserControler {
 		return "<h1> Hello World2<h1>";
 	}
 
+    
     @PostMapping(path="/register")
     public String addUser(@Valid @RequestBody UserRequest user) {
         return this.service.addUser(user);

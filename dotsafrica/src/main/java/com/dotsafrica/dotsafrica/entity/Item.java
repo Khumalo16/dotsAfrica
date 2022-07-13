@@ -26,7 +26,7 @@ public class Item {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message="'Name of the item  is blank")
+    @NotBlank(message="'Label is blank")
     @Column(
         name = "label",
         updatable = true,
@@ -35,14 +35,14 @@ public class Item {
     )
     private String label;   
     
-    @NotBlank(message="'Name of the item  is blank")
+    @NotBlank(message="'Discription is blank")
     @Column(
-        name = "description",
+        name = "discription",
         updatable = true,
         nullable = false,
         columnDefinition = "TEXT "
     )
-    private String decription;
+    private String discription;
 
     @Column(
         name = "status",
@@ -54,11 +54,11 @@ public class Item {
 
     @CreationTimestamp
     @Column(
-        name = "create_at",
+        name = "timestamp",
         nullable = false,
         updatable = false
     )
-    private Date create_at;
+    private Date timestamp;
 
     @UpdateTimestamp
     @Column(

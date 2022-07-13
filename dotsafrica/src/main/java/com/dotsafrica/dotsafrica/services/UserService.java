@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserService implements UserServices{
 
-    // @Autowired
+    @Autowired
     private final UserRepository userRepository;
 
     @Override

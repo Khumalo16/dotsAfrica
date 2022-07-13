@@ -12,6 +12,6 @@ public class ItemResponse {
     Long id;
     String label;
     String description;
-    Date create_at;
-    Date updated_at;
+    String create_at;
+    String updated_at;
 }
