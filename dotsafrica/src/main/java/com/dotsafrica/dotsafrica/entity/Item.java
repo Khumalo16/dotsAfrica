@@ -19,7 +19,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @NoArgsConstructor
 @Entity
-@Table(name="Item")
+@Table(name="item")
 public class Item {
     
     @Id
@@ -35,14 +35,14 @@ public class Item {
     )
     private String label;   
     
-    @NotBlank(message="'Discription is blank")
+    @NotBlank(message="'Description is blank")
     @Column(
-        name = "discription",
+        name = "description",
         updatable = true,
         nullable = false,
         columnDefinition = "TEXT "
     )
-    private String discription;
+    private String description;
 
     @Column(
         name = "status",

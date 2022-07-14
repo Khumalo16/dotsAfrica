@@ -37,36 +37,58 @@ public class ItemService implements ItemServices {
     private final UserRepository userRepository;
 
     @Override
-    public void addItem(ItemRequest itemRequest) {
+    public ItemResponse addItem(ItemRequest itemRequest) {
+
         Item  item = new Item();
         item.setLabel(itemRequest.getLabel());
-        item.setDiscription(itemRequest.getDescription());
+        item.setDescription(itemRequest.getDescription());
         Optional<AppUser> optUser = userRepository.findUserByUsername(itemRequest.getUsername());
         AppUser user = new AppUser();
         if (!optUser.isPresent())  throw new IllegalStateException("User not registered");
         user = optUser.get();
         item.setUser(user);
-        item.setStatus("not started");
+
+        // status of the item according to from the request body field
+        if (itemRequest.getStatus() != null) {
+            item.setStatus(itemRequest.getStatus().get());
+        } else {
+            item.setStatus("not started");
+        }
         itemRepository.save(item);
+
+        return mapToItemResponse(item);
+
     }
 
     @Override
-    public List<ItemResponse> findPaginated(String username, Optional<String> sortBy, Optional<Integer> pageNumber, Optional<Integer> numberSize) {
+    public List<ItemResponse> findPaginated(
+            String username, 
+            Optional<String> sortBy, 
+            Optional<Integer> pageNumber, 
+            Optional<Integer> numberSize) {
+
             Optional<AppUser> optUser = userRepository.findUserByUsername(username);
-            System.out.println(optUser.get());
+
             List<Item> items =  itemRepositoryPageble.findByUser(optUser.get(),
-                                    PageRequest.of(
-                                    pageNumber.orElse(0),numberSize.orElse(12),
-                                    Sort.Direction.ASC,
-                                    sortBy.orElse("timestamp"))).toList();
+                                PageRequest.of(
+                                pageNumber.orElse(0),numberSize.orElse(12),
+                                Sort.Direction.ASC,
+                                sortBy.orElse("timestamp"))).toList();
+
             return items.stream().map(this::mapToItemResponse).collect(Collectors.toList());
     }
 
+    /**
+     * Mapping all the returned field
+     * 
+     * @param item item to be mapped with item response object
+     * @return response object
+     */
     private ItemResponse mapToItemResponse(Item item) {
        
         ItemResponse itemEntiy = new ItemResponse();
         itemEntiy.setId(item.getId());
-        itemEntiy.setDescription(item.getDiscription());
+        itemEntiy.setDescription(item.getDescription());
         itemEntiy.setLabel(item.getLabel());
         itemEntiy.setCreate_at(isoDateTimeFormat(item.getTimestamp()));
         itemEntiy.setUpdated_at(isoDateTimeFormat(item.getUpdated_at()));
@@ -74,6 +96,12 @@ public class ItemService implements ItemServices {
         return itemEntiy;
     }
 
+    /**
+     * Convert the date time to ISO8601
+     * 
+     * @param date datetime 
+     * @return converted datetime to ISO8601
+     */
     private String isoDateTimeFormat(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         String strDate = dateFormat.format(date);
@@ -91,6 +119,7 @@ public class ItemService implements ItemServices {
      * @throws IllegalStateException if the user or id not found in the database 
      */
     private Item validate(String username, Optional<Long> id) {
+
         if (!id.isPresent() || username == null)  throw new IllegalStateException("Username or Id not provided");
         Optional<Item> item = itemRepository.findItemById(id.get());
         if (!item.isPresent()) throw new IllegalStateException("Item with id  "+ id.get()+" is not in the database");
@@ -115,8 +144,8 @@ public class ItemService implements ItemServices {
     public ItemResponse updateItem(ItemRequest itemRequest) {
         Item item = validate(itemRequest.getUsername(), itemRequest.getId());
 
-        if (itemRequest.getDiscription() != null) {
-            item.setDiscription(itemRequest.getDescription());
+        if (itemRequest.getDescription() != null) {
+            item.setDescription(itemRequest.getDescription());
         }
         if (itemRequest.getLabel() != null) {
             item.setLabel(itemRequest.getLabel());
@@ -137,6 +166,7 @@ public class ItemService implements ItemServices {
             || itemRequest.getStatus().get().equals("in progress") 
             || itemRequest.getStatus().get().equals("completed") 
             || itemRequest.getStatus().get().equals("cancelled")) {
+
                 item.setStatus(itemRequest.getStatus().get());
                 return item.getStatus();
         }

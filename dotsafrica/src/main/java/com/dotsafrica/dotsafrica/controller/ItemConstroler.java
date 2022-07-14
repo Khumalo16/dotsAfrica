@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,22 +21,23 @@ import com.dotsafrica.dotsafrica.services.ItemService;
 import jakarta.validation.Valid;
 
 @RestController
+@RequestMapping(path="/api")
 public class ItemConstroler {
     
     @Autowired 
     private ItemService service; 
 
     @PostMapping(path="/addItem")
-    public void addItem(@Valid @RequestBody ItemRequest itemRequest) {
-         this.service.addItem(itemRequest);
+    public ItemResponse addItem(@Valid @RequestBody ItemRequest itemRequest) {
+        return this.service.addItem(itemRequest);
     }
 
     @GetMapping(path="/items/{username}")
     public List<ItemResponse> list(
-    @PathVariable String username,
-    @RequestParam Optional<String> sortBy,
-    @RequestParam Optional<Integer> pageNumber,
-    @RequestParam Optional<Integer> pageSize) {
+        @PathVariable String username,
+        @RequestParam Optional<String> sortBy,
+        @RequestParam Optional<Integer> pageNumber,
+        @RequestParam Optional<Integer> pageSize) {
 
         return this.service.findPaginated(username, sortBy, pageNumber, pageSize);
     }

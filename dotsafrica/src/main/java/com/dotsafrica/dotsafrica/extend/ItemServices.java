@@ -18,8 +18,9 @@ public interface ItemServices {
      * Adding new item in the database
      * 
      * @param itemRequest all necessary fields of the item
+     * @return the added item
      */
-    void addItem(ItemRequest itemRequest);
+    ItemResponse addItem(ItemRequest itemRequest);
 
     /**
      * Making request by specified page and size number
@@ -34,8 +35,7 @@ public interface ItemServices {
         String username,
         Optional<String> sortBy, 
         Optional<Integer> pageNumber,
-        Optional<Integer> numberSize,
-    );
+        Optional<Integer> numberSize);
 
     /**
      * Get the item by Id

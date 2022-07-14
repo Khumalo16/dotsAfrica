@@ -1,7 +1,5 @@
 package com.dotsafrica.dotsafrica.response;
 
-import java.util.Date;
-
 import lombok.Getter;
 import lombok.Setter;
 

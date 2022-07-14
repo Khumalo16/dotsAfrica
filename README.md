@@ -38,13 +38,13 @@ We need to create:
 ## ROUTES IMPLEMENTED 
 | Purpose of route | HTTP Request Method | Route  | Body | Response |
 | :---: | :---: | :---: | :---: | :---:|
-| Register user | POST | /register | {"username": "..."}| HTTP_200_OK |
-| Add item | POST | /addItem | {"username": "...", "label": "...", "description,": "..."}| HTTP_200_OK |
-| Get items | GET | /items/username or add optional params such as {sortBy, pageNumber, pageSize} | - | HTTP_200_OK |
-| Get item | GET | /items/username?id=itemId | - | HTTP_200_OK |
-| Delete item | DELETE | /item/username?id=idNumber | - | HTTP_200_OK |
-| Update item | PUT | /item | {"id":"...", "username": "...", "label": "...", "description": "..."}  where label and description are optional field| HTTP_200_OK |
-| Update item  status | PUT | /item/status | {"username": "...", "id": "...", "status": "..."}| HTTP_200_OK |
+| Register user | POST | /api/register | {"username": "..."}| HTTP_200_OK |
+| Add item | POST | /api/addItem | {"username": "...", "label": "...", "description,": "..."}| HTTP_200_OK |
+| Get items | GET | /api/items/username or add optional params such as {sortBy, pageNumber, pageSize} | - | HTTP_200_OK |
+| Get item | GET | /api/item/username?id=itemId | - | HTTP_200_OK |
+| Delete item | DELETE | /api/item/username?id=itemId | - | HTTP_200_OK |
+| Update item | PUT | /api/item | {"id":"...", "username": "...", "label": "...", "description": "..."}  where label and description are optional field| HTTP_200_OK |
+| Update item  status | PUT | /api/item/status | {"username": "...", "id": "...", "status": "..."}| HTTP_200_OK |
 
 
 

@@ -22,6 +22,7 @@ public class UserService implements UserServices{
 
     @Override
     public String addUser(UserRequest userRequest) {
+        
         if (userRequest.getUsername() == null) throw new IllegalStateException("Username not provided");  
         Optional<AppUser> optUser = userRepository.findUserByUsername(userRequest.getUsername());
         if (optUser.isPresent())  throw new IllegalStateException("Username taken");
