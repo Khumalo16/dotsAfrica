@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DotsafricaApplication<dotsafrica>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.dotsafrica.dotsafrica.DotsafricaApplication",
+            "projectName": "dotsafrica",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
