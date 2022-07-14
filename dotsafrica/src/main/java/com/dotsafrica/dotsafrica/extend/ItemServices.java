@@ -28,7 +28,6 @@ public interface ItemServices {
      * @param sortBy    sorting of the items to be returned
      * @param pageNumber    starting page number of the items
      * @param numberSize    the size of the returned items
-     * @param order order of the items to be returned
      * @return items in terms of the given parameters
      */
     List<ItemResponse> findPaginated(
@@ -36,7 +35,6 @@ public interface ItemServices {
         Optional<String> sortBy, 
         Optional<Integer> pageNumber,
         Optional<Integer> numberSize,
-        Optional<String> order
     );
 
     /**
@@ -64,4 +62,12 @@ public interface ItemServices {
      * @return the item that is updated
      */
     ItemResponse updateItem(ItemRequest itemRequest);
+
+    /**
+     * Update status of the item
+     * 
+     * @param itemRequest request body contains all necessary updatable fields
+     * @return the updated status
+     */
+    String updateStatus(ItemRequest itemRequest);
 }

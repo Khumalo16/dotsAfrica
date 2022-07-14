@@ -10,7 +10,8 @@ import lombok.Getter;
 @Data
 public class ItemRequest {
     String label;
-    String discription;
+    String description;
     String username;
     Optional<Long> id;
+    Optional<String> status;
 }

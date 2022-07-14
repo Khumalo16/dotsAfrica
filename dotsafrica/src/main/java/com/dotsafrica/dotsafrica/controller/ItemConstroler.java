@@ -35,10 +35,9 @@ public class ItemConstroler {
     @PathVariable String username,
     @RequestParam Optional<String> sortBy,
     @RequestParam Optional<Integer> pageNumber,
-    @RequestParam Optional<Integer> pageSize ,
-    @RequestParam Optional<String> order) {
+    @RequestParam Optional<Integer> pageSize) {
 
-        return this.service.findPaginated(username, sortBy, pageNumber, pageSize, order);
+        return this.service.findPaginated(username, sortBy, pageNumber, pageSize);
     }
 
     @GetMapping(path="/item/{username}")
@@ -52,7 +51,12 @@ public class ItemConstroler {
     }
 
     @PutMapping(path="/item")
-    public ItemResponse updaItem(@RequestBody ItemRequest itemRequest) {
+    public ItemResponse updateItem(@RequestBody ItemRequest itemRequest) {
         return this.service.updateItem(itemRequest);
     }
+
+    @PutMapping(path="/item/status/")
+    public String updateStatus(@RequestBody ItemRequest itemRequest) {
+        return this.service.updateStatus(itemRequest);
+    }    
 }

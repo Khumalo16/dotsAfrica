@@ -40,7 +40,7 @@ public class ItemService implements ItemServices {
     public void addItem(ItemRequest itemRequest) {
         Item  item = new Item();
         item.setLabel(itemRequest.getLabel());
-        item.setDiscription(itemRequest.getDiscription());
+        item.setDiscription(itemRequest.getDescription());
         Optional<AppUser> optUser = userRepository.findUserByUsername(itemRequest.getUsername());
         AppUser user = new AppUser();
         if (!optUser.isPresent())  throw new IllegalStateException("User not registered");
@@ -51,8 +51,7 @@ public class ItemService implements ItemServices {
     }
 
     @Override
-    public List<ItemResponse> findPaginated(String username, Optional<String> sortBy, Optional<Integer> pageNumber, Optional<Integer> numberSize,
-            Optional<String> order) {
+    public List<ItemResponse> findPaginated(String username, Optional<String> sortBy, Optional<Integer> pageNumber, Optional<Integer> numberSize) {
             Optional<AppUser> optUser = userRepository.findUserByUsername(username);
             System.out.println(optUser.get());
             List<Item> items =  itemRepositoryPageble.findByUser(optUser.get(),
@@ -95,7 +94,7 @@ public class ItemService implements ItemServices {
         if (!id.isPresent() || username == null)  throw new IllegalStateException("Username or Id not provided");
         Optional<Item> item = itemRepository.findItemById(id.get());
         if (!item.isPresent()) throw new IllegalStateException("Item with id  "+ id.get()+" is not in the database");
-        if (!item.get().getUser().getUsername().equals(username)) throw new IllegalStateException(" Item not associated whith username "+ username);
+        if (!item.get().getUser().getUsername().equals(username)) throw new IllegalStateException(" Item is not associated whith username "+ username);
         return item.get();
     }
 
@@ -117,12 +116,31 @@ public class ItemService implements ItemServices {
         Item item = validate(itemRequest.getUsername(), itemRequest.getId());
 
         if (itemRequest.getDiscription() != null) {
-            item.setDiscription(itemRequest.getDiscription());
+            item.setDiscription(itemRequest.getDescription());
         }
         if (itemRequest.getLabel() != null) {
             item.setLabel(itemRequest.getLabel());
         }
-
         return mapToItemResponse(item);
+    }
+
+    @Override
+    public String updateStatus(ItemRequest itemRequest) {
+
+        Item item = validate(itemRequest.getUsername(), itemRequest.getId());
+        if (itemRequest.getStatus().get().equals("cancelled") && item.getStatus().equals("completed")) {
+            throw new IllegalStateException ("The item is completed, it connot be revoked");
+        }
+
+        // check type of the status before updating it
+        if (itemRequest.getStatus().get().equals("not started") 
+            || itemRequest.getStatus().get().equals("in progress") 
+            || itemRequest.getStatus().get().equals("completed") 
+            || itemRequest.getStatus().get().equals("cancelled")) {
+                item.setStatus(itemRequest.getStatus().get());
+                return item.getStatus();
+        }
+        
+        throw new IllegalStateException("Invalid status type provided");
     }
 }
