@@ -123,7 +123,7 @@ public class ItemService implements ItemServices {
         if (!id.isPresent() || username == null)  throw new IllegalStateException("Username or Id not provided");
         Optional<Item> item = itemRepository.findItemById(id.get());
         if (!item.isPresent()) throw new IllegalStateException("Item with id  "+ id.get()+" is not in the database");
-        if (!item.get().getUser().getUsername().equals(username)) throw new IllegalStateException(" Item is not associated whith username "+ username);
+        if (!item.get().getUser().getUsername().equals(username)) throw new IllegalStateException("Item is not associated with username "+ username);
         return item.get();
     }
 
@@ -137,7 +137,7 @@ public class ItemService implements ItemServices {
     public String deleteItem(String username, Optional<Long> id) {
         validate(username, id);
         itemRepository.deleteById(id.get());
-        return "Deleted successful"; 
+        return "Deleted successfull"; 
     }  
 
     @Override

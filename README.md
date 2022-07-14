@@ -24,7 +24,7 @@ We need to create:
    ```
 
 ## HOW TO RUN REST API
-1. If you are using Visual Studio Code, you can simple download **Spring boot dashbord** extension. Navigate to the project directroy. Spring dashboard bar should appear on the right side (aligned with download extension icon). Upon clicking the Sping icon, the option to run the application should appear visible.
+1. If you are using Visual Studio Code, you can simple download **Spring boot dashbord** extension. Navigate to the project directroy. Spring dashboard bar should appear on the right side (aligned with download extension icon). Upon clicking the Sping icon, the option to run the application should be visible.
 
 2. If wish to run via terminal, open terminal in project directory and run the following command.
 

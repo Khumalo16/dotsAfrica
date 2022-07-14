@@ -43,7 +43,7 @@ public class config {
            itemRepository.save(item2);
 
 
-
+ 
 
            Optional<AppUser> user2 = userRepository.findUserByUsername("Khumalo");
 
