@@ -1,5 +1,6 @@
 package com.dotsafrica.dotsafrica.extend;
 
+import com.dotsafrica.dotsafrica.entity.AppUser;
 import com.dotsafrica.dotsafrica.request.UserRequest;
 
 /**
@@ -16,4 +17,12 @@ public interface UserServices {
      * @return username
      */
     String addUser(UserRequest user);
+
+    /**
+     * Get user from the database
+     * 
+     * @param username username of the user
+     * @return user
+     */
+    AppUser findUserbyUsername(String username);
 }

@@ -1,13 +1,11 @@
 package com.dotsafrica.dotsafrica.exception;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.List;
-import java.util.stream.Collectors;
-
-
-
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +25,15 @@ import jakarta.validation.ConstraintViolationException;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private Set<String> error;
+    
+    public GlobalExceptionHandler() {
+        
+        error = new HashSet<>();
+        error.add("Label is blank");
+        error.add("Description is blank");
+        error.add("Username field should not be null  or empty");       
+    } 
     /**
      * Handle IllegalStateException
      * 
@@ -53,15 +60,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * @return a customise error message
      */
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Object> illegatStatementEsxception(ConstraintViolationException e, HttpStatus httpStatus) {
+    public ResponseEntity<Object> illegatStatementEsxception(ConstraintViolationException e) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", System.currentTimeMillis());
         body.put("status", HttpStatus.BAD_GATEWAY);
         
         List<String> errors = new ArrayList<>();
-        ErrorMessage errorsList = new ErrorMessage();
 
-        for (String error : errorsList.getError()) {
+        // append in the list all error messages
+        
+        for (String error : error) {
+            if (e.getMessage().contains(error))
              errors.add(error);         
         }
         body.put("message", errors);

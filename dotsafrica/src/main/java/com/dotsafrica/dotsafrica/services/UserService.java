@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dotsafrica.dotsafrica.entity.AppUser;
+import com.dotsafrica.dotsafrica.entity.Item;
 import com.dotsafrica.dotsafrica.extend.UserServices;
 import com.dotsafrica.dotsafrica.repository.UserRepository;
 import com.dotsafrica.dotsafrica.request.UserRequest;
@@ -30,5 +31,12 @@ public class UserService implements UserServices{
         user.setUsername(userRequest.getUsername());
         userRepository.save(user);
         return user.getUsername();
+    }
+
+    @Override
+    public AppUser findUserbyUsername(String username) {
+        Optional<AppUser> user = this.userRepository.findUserByUsername(username);
+        if (!user.isPresent()) throw new IllegalStateException("User not found");
+        return user.get();
     }
 }

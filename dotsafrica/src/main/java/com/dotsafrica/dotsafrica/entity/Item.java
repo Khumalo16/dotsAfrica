@@ -26,7 +26,7 @@ public class Item {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message="'Label is blank")
+    @NotBlank(message="Label is blank")
     @Column(
         name = "label",
         updatable = true,

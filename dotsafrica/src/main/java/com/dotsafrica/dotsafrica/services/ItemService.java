@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -122,7 +123,7 @@ public class ItemService implements ItemServices {
 
         if (!id.isPresent() || username == null)  throw new IllegalStateException("Username or Id not provided");
         Optional<Item> item = itemRepository.findItemById(id.get());
-        if (!item.isPresent()) throw new IllegalStateException("Item with id  "+ id.get()+" is not in the database");
+        if (!item.isPresent()) throw new NoSuchElementException("Item with id  "+ id.get()+" is not in the database");
         if (!item.get().getUser().getUsername().equals(username)) throw new IllegalStateException("Item is not associated with username "+ username);
         return item.get();
     }
