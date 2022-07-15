@@ -28,12 +28,12 @@ We need to create:
 
 2. If wish to run via terminal, open terminal in project directory and run the following command:
 
-    to run the application
+    To run the application
     ```
     $ mvn spring-boot:run
     ```
     
-    tO run configured test cases
+    To run configured test cases
 
     ```
     $ mvn test
@@ -46,7 +46,7 @@ We need to create:
 ## ROUTES IMPLEMENTED 
 | Purpose of route | HTTP Request Method | Route  | Body | Response |
 | :---: | :---: | :---: | :---: | :---:|
-| Register user | POST | /api/register | {"username": "..."}| HTTP_200_OK |
+| Register user | POST | /api/register | {"username": "..."}| HTTP_201_CREATED |
 | Add item | POST | /api/addItem | {"username": "...", "label": "...", "description,": "..."}| HTTP_201_CREATED |
 | Get items | GET | /api/items/username or add optional params such as {sortBy, pageNumber, pageSize} | - | HTTP_201_CREATED |
 | Get item | GET | /api/item/username?id=itemId | - | HTTP_200_OK |
