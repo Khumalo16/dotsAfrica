@@ -31,6 +31,12 @@ We need to create:
     ```
     $ mvn spring-boot:run
     ```
+  to run the application
+
+  ```
+  $ mvn test
+  ```
+  to run configured test cases
 
 
 **NOTE** Server will be running on: http://127.0.0.1:8080
