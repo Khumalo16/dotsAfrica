@@ -48,7 +48,7 @@ We need to create:
 | :---: | :---: | :---: | :---: | :---:|
 | Register user | POST | /api/register | {"username": "..."}| HTTP_201_CREATED |
 | Add item | POST | /api/addItem | {"username": "...", "label": "...", "description,": "..."}| HTTP_201_CREATED |
-| Get items | GET | /api/items/username or add optional params such as {sortBy, pageNumber, pageSize} | - | HTTP_201_CREATED |
+| Get items | GET | /api/items/username or add optional params such as {sortBy, pageNumber, pageSize} | - | HTTP_200_OK |
 | Get item | GET | /api/item/username?id=itemId | - | HTTP_200_OK |
 | Delete item | DELETE | /api/item/username?id=itemId | - | HTTP_200_OK |
 | Update item | PUT | /api/item | {"id":"...", "username": "...", "label": "...", "description": "..."}  where label and description are optional field| HTTP_201_CREATED |
